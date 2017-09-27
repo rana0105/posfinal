@@ -55,6 +55,8 @@ Route::group( ['middleware' => ['auth']], function() {
 	Route::get('/checkQuantity', 'Backend\PsaleController@checkQuantity');
 	Route::get('/addToCart', 'Backend\PsaleController@addToCart');
 
+	Route::get('products-search', 'Backend\PsaleController@productSearch');
+
 	Route::get('/loadPackage', 'Backend\PsaleController@loadPackage');
 	Route::get('/checkPackageQuantity', 'Backend\PsaleController@checkPackageQuantity');
 	Route::get('/addPacakge', 'Backend\PsaleController@addPacakge');

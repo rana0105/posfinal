@@ -172,7 +172,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
-        /*
+        /* 
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,

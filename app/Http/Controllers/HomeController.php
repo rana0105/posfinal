@@ -51,7 +51,7 @@ class HomeController extends Controller
       $sales = Charts::create('bar', 'highcharts')
             ->title('Sale Statistics')
             ->elementLabel('Sale Statistics')
-            ->dimensions(550, 400)
+            ->dimensions(1140, 400)
             ->responsive(false)
             ->labels($data->pluck('date'))
             ->values($data->pluck('aggregates'));
@@ -61,7 +61,7 @@ class HomeController extends Controller
       $expense = Charts::create('line', 'highcharts')
                ->title('Expense Statistics')
                ->elementLabel('Expense Statistics')
-               ->dimensions(600, 400)
+               ->dimensions(550, 400)
                ->responsive(false)
                ->labels($data->pluck('date'))
                ->values($data->pluck('amount'));

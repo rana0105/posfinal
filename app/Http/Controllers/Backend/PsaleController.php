@@ -34,6 +34,8 @@ class PsaleController extends Controller
 
     public function create()
     {
+        $pro = Product::where('status', 1)->get();
+        $pacpro = Product::where('status', 0)->get();
         $product = Product::where('procategory_id',1)->get();
         $customers = Customer::all();
         $procategories = Procategory::all();
@@ -41,7 +43,7 @@ class PsaleController extends Controller
         $pacates = PackCate::all();
         $shop = DB::table('settings')->pluck('shop_name');
         $copy = DB::table('settings')->pluck('copy');
-        return view('backend.psale.create')->withProduct($product)->withCustomers($customers)->withProcates($procategories)->withSuppliers($suppliers)->withPacates($pacates)->withShop($shop)->withCopy($copy);
+        return view('backend.psale.create')->withProduct($product)->withPro($pro)->withPacpro($pacpro)->withCustomers($customers)->withProcates($procategories)->withSuppliers($suppliers)->withPacates($pacates)->withShop($shop)->withCopy($copy);
     }
     public function loadProduct(Request $request){
         if($request->ajax()){
@@ -453,4 +455,25 @@ class PsaleController extends Controller
     {
         //
     }
+
+    // public function productSearch(Request $request){
+    //     $search_tag = $request->get('search_tag');
+    //     $query = Product::where('procategory_id',1)->orderBy('products.id', 'desc');
+    //     $customers = Customer::all();
+    //     $procategories = Procategory::all();
+    //     $suppliers = Supplier::all();
+    //     $pacates = PackCate::all();
+    //     $shop = DB::table('settings')->pluck('shop_name');
+    //     $copy = DB::table('settings')->pluck('copy');
+    //     //dd($query);
+    //     if(!empty($search_tag)){   
+    //         $query->where('id', 'LIKE', '%'.$search_tag.'%'); 
+    //         $query->orwhere('name', 'LIKE', '%'.$search_tag.'%');
+    //         $query->orwhere('code', 'LIKE', '%'.$search_tag.'%');
+    //         $query->orwhere('bar_code', 'LIKE', '%'.$search_tag.'%');
+    //     }
+    //     $product = $query->paginate(1);
+    //     return view('backend.psale.create')->withProduct($product)->withCustomers($customers)->withProcates($procategories)->withSuppliers($suppliers)->withPacates($pacates)->withShop($shop)->withCopy($copy);
+    // }
+
 }

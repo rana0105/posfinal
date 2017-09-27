@@ -7,7 +7,7 @@
                 <h3 class="title">Product</h3>
                 <hr />
             </div>
-            <header class="panel-heading">
+			<header class="panel-heading navbar-form navbar-left">
 			      	@can('add_products')
 						<a href="{{ URL::route('products.create') }}" class="btn btn-primary btn-sm">Create Product</a>
 					@endcan
@@ -76,3 +76,4 @@
     	</div>
     </div>
 @endsection
+

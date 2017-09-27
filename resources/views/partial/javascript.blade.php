@@ -25,18 +25,8 @@ $(document).ready(function(){
 	loadProduct();
 	addToCart();
 	loadPackage();
-	//addPacakgeCart();
 	getProductid();
-	// getProductnoti();
-
-	// $.ajax({
-	// 	url: '{{URL::to('backup.php')}}',
-	// 	type: 'get',
-	// 	data: {},
-	// 	success: function(data){
-	// 		console.log(data);
-	// 	}
-	// }); 
+	searchProduct();
 
 	$('.submit').click(function(){
 		var formdate = $('#dateform').val();
@@ -227,8 +217,8 @@ $(document).ready(function(){
 	      	if(data != ''){
 	      		//alert("ok");
 
-	      		//$("#modalId").trigger('click'); 
-	      	    $("#modalId").modal('show'); 
+	      		$("#modalId").trigger('click'); 
+	      	    //$("#modalId").modal('show'); 
 		      	$("#divIdUnderModal").html(data);	
 		      	console.log(data);
 		      	//$(".result").dialog(data);
@@ -245,6 +235,73 @@ $(document).ready(function(){
      //  $(".result").load("load.html");
  
   	  // setInterval('getProductid()', 10000); 
+	}
+
+	function searchProduct(){
+		$('.productsearch').change(function() {
+			var id = this.value ;
+			//alert(id);
+			$.ajax({
+				url: '{{URL::to('checkQuantity')}}',
+				type: 'get',
+				data: {'id':id,},
+				success: function(data){
+					if(data>0){
+							var taskArray = new Array();
+				            $(".p_id").each(function() {
+				            	var p_id = $(this).val();
+				            	taskArray.push(p_id);
+				            });
+				            if(taskArray.length >0){
+				            	if(checkValue(id,taskArray) == 1){
+					            	taskArray.push(id);
+
+					            }
+				            }
+				            var quantity = new Array();
+				            $('.qnt').each(function(){
+				            	var qnt = $(this).val();
+				            	var qid = $(this).attr('id');
+				            	if(parseInt(qid) == id){
+
+				            		quantity.push(parseInt(qnt)+1);
+				            	}else{
+
+				            		quantity.push(parseInt(qnt));
+				            	}
+				            	
+				            });
+							$.ajax({
+								url: '{{URL::to('addToCart')}}',
+								type: 'get',
+								data: {'id':id,'taskArray':taskArray,'quantity':quantity,},
+								success: function(data){
+									if(data == ''){
+
+										alert('this product is exist in cart');
+										
+									}else{
+										//console.log(data);
+
+										$('.cahange').html(data);
+										var spin = $( ".spinner" ).spinner({ 
+										});
+
+										total();
+										ntotal();						
+										due();
+										
+									}
+								}
+							});
+					}else{
+						
+						swal("Unavailable Stock" , "Please Product Stock !");
+						console.log(data);
+					}
+				}
+			});
+		});
 	}
 	
 </script>

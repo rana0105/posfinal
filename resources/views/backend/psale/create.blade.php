@@ -11,10 +11,19 @@
                     <hr />
                 </div>
     		</div>
+    		{{-- <div style="margin-right: 10px;">
+	       			    <form class="navbar-form navbar-right" role="form" action="{{ url('products-search') }}" method="GET">
+	                    <div class="form-group">
+	                      <input type="text" class="form-control" placeholder="Input here.." name="search_tag">
+	                    </div>
+	                    <button type="submit" style="margin-top: -20px;" class="btn btn-primary">Search</button>
+	                </form>
+	                </div> --}}
     	    <form action="{{ route('psales.store') }}" method="POST" files="true" target="blank">
 			{{ csrf_field() }}
             <div class="row">
             	<div class="col-md-7">
+            	<div class="row">
 		            <div class="col-xs-6 col-sm-6 col-md-6">
 		                <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
 		                    <label for="name" class="cols-sm-2 control-label">Customer</label>
@@ -45,8 +54,39 @@
 		                    </div>
 		                </div>
 		            </div>
-
+		       			<div class="col-xs-6 col-sm-6 col-md-6">
+		                <div class="form-group {{ $errors->has('s_name') ? ' has-error' : '' }}">
+		                    <label for="s_name" class="cols-sm-2 control-label">Search Product with Add</label>
+		                    <div class="cols-sm-10">
+		                        <select class="form-control livesearch productsearch" name="name" required="">
+		                        	<option value="0" disabled="true" selected="ture">--Search Product with Add--</option>
+		                        	@foreach($pro as $p)
+		                        		<option id="productsearch" value="{{ $p->id }}">{{ $p->name }}
+		                        		</option>
+		                        	@endforeach
+		            		    </select> 
+		                        <small class="text-danger">{{ $errors->first('name') }}</small>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="col-xs-6 col-sm-6 col-md-6">
+		                <div class="form-group {{ $errors->has('s_name') ? ' has-error' : '' }}">
+		                    <label for="s_name" class="cols-sm-2 control-label">Search Package with Add</label>
+		                    <div class="cols-sm-10">
+		                        <select class="form-control livesearch productsearch" name="name" required="">
+		                        	<option value="0" disabled="true" selected="ture">--Search Package with Add--</option>
+		                        	@foreach($pacpro as $p)
+		                        		<option id="productsearch" value="{{ $p->id }}">{{ $p->name }}
+		                        		</option>
+		                        	@endforeach
+		            		    </select> 
+		                        <small class="text-danger">{{ $errors->first('name') }}</small>
+		                    </div>
+		                </div>
+		            </div>
+	            </div>
 					<div class="form-group">
+
 		            	<label for="product" class="cols-sm-2 control-label">Add Product</label>
 		                <div style="height: 300px; border: solid 2px #036d21; overflow-y: auto;">
 					       	<table class="table table-responsive table-bordered">
@@ -96,7 +136,7 @@
 	       		</div>
 	       		<div class="col-md-4">
 	       			<div class="row">
-	       			    <h5 style="text-align: center;"><b>Category of Product</b></h5>
+	       			  <h5 style="text-align: center;"><b>Category of Product</b></h5>
 	       				<div class="carousel slide" data-ride="carousel" data-type="multi" data-interval="" id="myCarousel">
 					      <div class="carousel-inner">
 					      @foreach($procates as $key => $procat)
